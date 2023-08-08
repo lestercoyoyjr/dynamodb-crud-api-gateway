@@ -75,6 +75,18 @@ const updatePost = async (event) => {
         const params = {
             TableName: process.env.DYNAMODB_TABLE_NAME,
             Key: marshall({ postId: event.pathParameters.postId }),
+            // depending on how you name your reserved words and keys, you might like this option too:
+            /*
+            "UpdateExpression": "SET #attrName =: attrValue",
+            "ExpressionAttributeNames" : {
+                "#attrName" : "SessionID"
+            },
+            "ExpressionAttributeValues" : {
+                "attrValue" : {
+                    "S" : "some string"
+                }
+            }
+            */
             UpdateExpression: `SET ${objKeys.map((_, index) => `#key${index} = :value${index}`).join(", ")}`,
             ExpressionAttributeNames: objKeys.reduce((acc, key, index) => ({
                 ...acc,
