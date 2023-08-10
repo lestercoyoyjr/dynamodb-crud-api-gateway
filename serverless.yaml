@@ -1,4 +1,4 @@
-service : dynamodb-crud-api
+service: dynamodb-crud-api
 
 provider:
   name: aws
@@ -14,7 +14,6 @@ custom:
 plugins:
   - serverless-iam-roles-per-function
 
-# functions and events configurations
 functions:
   getPost:
     handler: api.getPost
@@ -85,7 +84,7 @@ functions:
       - Effect: "Allow"
         Action:
           - "dynamodb:Scan"
-        Resource: !GetAtt PostsTable.Arn 
+        Resource: !GetAtt PostsTable.Arn
 
 resources:
   Resources:
